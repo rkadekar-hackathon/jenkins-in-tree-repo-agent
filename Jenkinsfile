@@ -1,5 +1,10 @@
-podTemplate(yaml: readTrusted('build-agent.yaml')) {
-  node(POD_LABEL) { 
+pipeline {
+  agent {
+    kubernetes {
+      yamlFile 'build-agent.yaml'
+    }
+  }
+  stages {
     stage('Build My Docker Image')  {
       steps {
         container('dind') {
